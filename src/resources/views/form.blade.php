@@ -62,7 +62,7 @@
                 <div>{{$fileIn['changeTimeDescription']}}{{$fileIn['changeTime']}}</div>
             </div>
         @endforeach
-        <br><a href="{{Storage::url('info.pdf')}}" target="_blank">Скачать инфо ПДФ</a>
+        <br><a href="{{Storage::url($outputFilename)}}" target="_blank">Скачать инфо ПДФ</a>
     @endif
 
     @if(!empty($formHistories))

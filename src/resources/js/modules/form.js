@@ -4,9 +4,10 @@ $(document).on('change', '.fileInput', function(event) {
     let file = event.target.files[0]; // Получаем выбранный файл
     if (file) {
         $(this).siblings('.fileModifiedTime').val(file.lastModified);
-        $(this).siblings('.docShortName').val(file.name.replace(/\.[^/.]+$/, ""));
+        let replacedFileName = file.name.replace(/\.[^/.]+$/, "")
+        $(this).siblings('.docShortName').val(replacedFileName);
 
-        let listName = file.name.replace(/\).*/, ") - УЛ");
+        let listName = replacedFileName.replace(/\).*/, ") - УЛ");
         $('#infoList').val(listName);
     }
 });

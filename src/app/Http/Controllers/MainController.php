@@ -68,8 +68,16 @@ class MainController extends Controller
             $context['signUploadGroup'][$key] = $signUploadGroup;
         }
 
+        $storageFiles = Storage::disk('public')->allFiles();
+        foreach ($storageFiles as $file) {
+            if ($file === '.gitignore') {
+                continue;
+            }
+            Storage::disk('public')->delete($file);
+        }
         $res = \App\Classes\pdfExtractor::get_pdf_content($context);
-        Storage::disk('public')->put('info.pdf', $res, 'public');
+        $context['outputFilename'] = !empty($context['infoList']) ? $context['infoList'] . '.pdf' : 'info.pdf';
+        Storage::disk('public')->put($context['outputFilename'], $res, 'public');
 
         $fh = new FormHistory();
         $fh->context = json_encode($context, JSON_UNESCAPED_SLASHES);
@@ -88,8 +96,16 @@ class MainController extends Controller
         $data = FormHistory::findOrFail($id);
         $context = json_decode($data->context, true);
 
+        $storageFiles = Storage::disk('public')->allFiles();
+        foreach ($storageFiles as $file) {
+            if ($file === '.gitignore') {
+                continue;
+            }
+            Storage::disk('public')->delete($file);
+        }
         $res = \App\Classes\pdfExtractor::get_pdf_content($context);
-        Storage::disk('public')->put('info.pdf', $res, 'public');
+        $context['outputFilename'] = !empty($context['infoList']) ? $context['infoList'] . '.pdf' : 'info.pdf';
+        Storage::disk('public')->put($context['outputFilename'], $res, 'public');
 
         $allFHs = FormHistory::all();
         foreach ($allFHs as $key => $fh) {
