@@ -6,7 +6,7 @@ $(document).on('change', '.fileInput', function(event) {
         $(this).siblings('.fileModifiedTime').val(file.lastModified);
         $(this).siblings('.docShortName').val(file.name.replace(/\.[^/.]+$/, ""));
 
-        let listName = file.name.replace(/\)\s.*/, ") - УЛ");
+        let listName = file.name.replace(/\).*/, ") - УЛ");
         $('#infoList').val(listName);
     }
 });
