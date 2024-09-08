@@ -9,34 +9,28 @@
         <div class="d-flex">
             <div class="ms-auto me-auto"><h4>Раздел ПДФ</h4></div>
         </div>
-        @if(!empty($fileUploadGroup))
-            @foreach($fileUploadGroup as $fileGroup)
-                <div class="file-upload-group mb-3">
-                    <input type="hidden" class="fileModifiedTime" name="fileModifiedTime[]" value="{{$fileGroup['fileModifiedTime'] ?? ''}}">
-                    <input type="file" name="file[]" class="form-control fileInput" value="">
-                    <input type="text" name="docShortName[]" class="form-control docShortName" placeholder="Обозначение документа" value="{{$fileGroup['docShortName'] ?? ''}}">
-                    <input type="text" name="docName[]" class="form-control docName" placeholder="Название документа" value="{{$fileGroup['docName'] ?? ''}}">
-                    <input type="text" name="docChanges[]" class="form-control docChanges" placeholder="Версия" value="{{$fileGroup['docChanges'] ?? ''}}">
-                    <input type="button" class="btn btn-secondary deleteItems" value="Удалить элементы">
-                </div>
-            @endforeach
-        @else
+        @php
+            $fileGroups = !empty($fileUploadGroup) ? $fileUploadGroup : [[]];
+        @endphp
+        @foreach($fileGroups as $fileGroup)
             <div class="file-upload-group mb-3">
-                <input type="hidden" class="fileModifiedTime" name="fileModifiedTime[]" value="">
+                <input type="hidden" class="fileModifiedTime" name="fileModifiedTime[]" value="{{$fileGroup['fileModifiedTime'] ?? ''}}">
                 <input type="file" name="file[]" class="form-control fileInput" value="">
-                <input type="text" name="docShortName[]" class="form-control docShortName" placeholder="Обозначение документа" value="">
-                <input type="text" name="docName[]" class="form-control docName" placeholder="Название документа" value="">
-                <input type="text" name="docChanges[]" class="form-control docChanges" placeholder="Версия" value="">
+                <input type="text" name="docShortName[]" class="form-control docShortName" placeholder="Обозначение документа" value="{{$fileGroup['docShortName'] ?? ''}}">
+                <input type="text" name="docName[]" class="form-control docName" placeholder="Название документа" value="{{$fileGroup['docName'] ?? ''}}">
+                <input type="text" name="docChanges[]" class="form-control docChanges" placeholder="Версия" value="{{$fileGroup['docChanges'] ?? ''}}">
                 <input type="button" class="btn btn-secondary deleteItems" value="Удалить элементы">
             </div>
-        @endif
+        @endforeach
         <input type="button" class="btn btn-primary" id="addItems" value="Добавить элементы"><br><br><br>
 
         <div class="d-flex">
             <div class="ms-auto me-auto"><h4>Раздел подписей</h4></div>
         </div>
-        @if(!empty($signUploadGroup))
-        @foreach($signUploadGroup as $signGroup)
+        @php
+            $signGroups = !empty($signUploadGroup) ? $signUploadGroup : [[]];
+        @endphp
+        @foreach($signGroups as $signGroup)
             <div class="sign-upload-group mb-3">
                 <input type="file" name="sign[]" class="form-control signInput">
                 <input type="text" name="work[]" class="form-control work" placeholder="Характер работы" value="{{$signGroup['work'] ?? ''}}">
@@ -45,15 +39,6 @@
                 <input type="button" class="btn btn-secondary deleteItemsSign" value="Удалить элементы">
             </div>
         @endforeach
-        @else
-            <div class="sign-upload-group mb-3">
-                <input type="file" name="sign[]" class="form-control signInput">
-                <input type="text" name="work[]" class="form-control work" placeholder="Характер работы" value="">
-                <input type="text" name="family[]" class="form-control family" placeholder="Фамилия" value="">
-                <input type="text" name="signDate[]" class="form-control signDate" placeholder="Дата подписания" value="">
-                <input type="button" class="btn btn-secondary deleteItemsSign" value="Удалить элементы">
-            </div>
-        @endif
         <input type="button" class="btn btn-primary" id="addItemsSign" value="Добавить элементы"><br><br><br>
 
         <div class="d-flex">
@@ -89,4 +74,5 @@
             <br>
         @endforeach
     @endif
+    <div class="mb-5"></div>
 </div>

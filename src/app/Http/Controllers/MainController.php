@@ -71,10 +71,8 @@ class MainController extends Controller
         $res = \App\Classes\pdfExtractor::get_pdf_content($context);
         Storage::disk('public')->put('info.pdf', $res, 'public');
 
-        $copy_context = $context;
-        unset($copy_context['fileInfo']);
         $fh = new FormHistory();
-        $fh->context = json_encode($copy_context, JSON_UNESCAPED_SLASHES);
+        $fh->context = json_encode($context, JSON_UNESCAPED_SLASHES);
         $fh->save();
 
         $allFHs = FormHistory::all();
@@ -89,6 +87,9 @@ class MainController extends Controller
     public static function getFormHistory($id, Request $request) {
         $data = FormHistory::findOrFail($id);
         $context = json_decode($data->context, true);
+
+        $res = \App\Classes\pdfExtractor::get_pdf_content($context);
+        Storage::disk('public')->put('info.pdf', $res, 'public');
 
         $allFHs = FormHistory::all();
         foreach ($allFHs as $key => $fh) {
