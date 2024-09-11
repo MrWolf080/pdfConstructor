@@ -35,17 +35,17 @@ class pdfExtractor {
             <td style="width: 30%; text-align: center"><strong>MD5</strong></td>
             <td style="width: 70%; text-align: center"><strong>Значение MD5</strong></td>
         </tr>';
-        foreach ($context['fileUploadGroup'] as $key => $doc) {
+        foreach ($context['fileUploadGroup'] as $doc) {
             $str .= '<tr>
             <td style="width: 30%; text-align: center">'. $doc['number'] .'</td>
-            <td style="width: 70%; text-align: center">'. $context['fileInfo'][$key]['fileMD5'] .'</td>
+            <td style="width: 70%; text-align: center">'. ($doc['fileMD5'] ?? '') .'</td>
         </tr>';
         }
         return $str;
     }
 
     protected static function get_html_fileinfo_doc(array $context) {
-        if (empty($context['fileInfo'])) {
+        if (empty($context['fileUploadGroup'])) {
             return '';
         }
         $str = '
@@ -54,12 +54,12 @@ class pdfExtractor {
             <td style="width: 30%; text-align: center"><strong>Дата и время последнего изменения файла</strong></td>
             <td style="width: 20%; text-align: center"><strong>Размер файла, байт</strong></td>
         </tr>';
-        foreach ($context['fileInfo'] as $doc) {
+        foreach ($context['fileUploadGroup'] as $doc) {
             $str .= '
         <tr>
-            <td style="width: 50%; text-align: center">'. $doc['fileName'] .'</td>
-            <td style="width: 30%; text-align: center">'. $doc['changeTime'] .'</td>
-            <td style="width: 20%; text-align: center">'. $doc['fileSize'] .'</td>
+            <td style="width: 50%; text-align: center">'. ($doc['fileName'] ?? '') .'</td>
+            <td style="width: 30%; text-align: center">'. ($doc['changeTime'] ?? '') .'</td>
+            <td style="width: 20%; text-align: center">'. ($doc['fileSize'] ?? '') .'</td>
         </tr>';
         }
         return $str;
@@ -77,10 +77,10 @@ class pdfExtractor {
     </tr>';
         foreach ($context['signUploadGroup'] as $sign) {
             $str .= '<tr>
-            <td style="width: 30%; text-align: center;"><div style="vertical-align: middle;"></div>'. $sign['work'] .'</td>
-            <td style="width: 20%; text-align: center;"><div style="vertical-align: middle;"></div>'. $sign['family'] .'</td>
-            <td style="width: 30%; text-align: center;"><img width="100" height="50" src="' . $sign['sign'] .'"></td>
-            <td style="width: 20%; text-align: center;"><div style="vertical-align: middle;"></div>'. $sign['signDate'] .'</td>
+            <td style="width: 30%; text-align: center;"><div style="vertical-align: middle;"></div>'. ($sign['work'] ?? '') .'</td>
+            <td style="width: 20%; text-align: center;"><div style="vertical-align: middle;"></div>' . ($sign['family'] ?? '') . '</td>
+            <td style="width: 30%; text-align: center;"><img width="100" height="50" src="' . ($sign['base64'] ?? '') .'"></td>
+            <td style="width: 20%; text-align: center;"><div style="vertical-align: middle;"></div>' . ($sign['signDate'] ?? '') .'</td>
         </tr>';
         }
         return $str;

@@ -15,7 +15,22 @@
         @foreach($fileGroups as $fileGroup)
             <div class="file-upload-group mb-3">
                 <input type="hidden" class="fileModifiedTime" name="fileModifiedTime[]" value="{{$fileGroup['fileModifiedTime'] ?? ''}}">
-                <input type="file" name="file[]" class="form-control fileInput" value="">
+                @if(!empty($fileGroup['fileName']))
+                    <div class="exists-file-info">
+                        <div class="d-flex gap-2 align-items-center">
+                            <div>Загружен файл: {{$fileGroup['fileName']}}</div>
+                            <input type="button" class="btn btn-secondary replace-file-info" value="Заменить файл">
+                        </div>
+                    </div>
+                    <input style="display: none;" type="file" name="file[]" class="form-control fileInput" value="">
+                @else
+                    <input type="file" name="file[]" class="form-control fileInput" value="">
+                @endif
+                <input type="hidden" class="fileName" name="fileName[]" value="{{$fileGroup['fileName'] ?? ''}}">
+                <input type="hidden" class="fileSize" name="fileSize[]" value="{{$fileGroup['fileSize'] ?? ''}}">
+                <input type="hidden" class="fileMD5" name="fileMD5[]" value="{{$fileGroup['fileMD5'] ?? ''}}">
+                <input type="hidden" class="changeTimeDescription" name="changeTimeDescription[]" value="{{$fileGroup['changeTimeDescription'] ?? ''}}">
+                <input type="hidden" class="changeTime" name="changeTime[]" value="{{$fileGroup['changeTime'] ?? ''}}">
                 <input type="text" name="docShortName[]" class="form-control docShortName" placeholder="Обозначение документа" value="{{$fileGroup['docShortName'] ?? ''}}">
                 <input type="text" name="docName[]" class="form-control docName" placeholder="Название документа" value="{{$fileGroup['docName'] ?? ''}}">
                 <input type="text" name="docChanges[]" class="form-control docChanges" placeholder="Версия" value="{{$fileGroup['docChanges'] ?? ''}}">
@@ -32,7 +47,19 @@
         @endphp
         @foreach($signGroups as $signGroup)
             <div class="sign-upload-group mb-3">
-                <input type="file" name="sign[]" class="form-control signInput">
+                @if(!empty($signGroup['base64']))
+                    <div class="exists-sign">
+                        <div class="d-flex gap-2 align-items-center">
+                            <div>Загружен файл: {{$signGroup['signFileName']}}</div>
+                            <input type="button" class="btn btn-secondary replace-sign" value="Заменить файл">
+                        </div>
+                    </div>
+                    <input style="display: none;" type="file" name="sign[]" class="form-control signInput">
+                @else
+                    <input type="file" name="sign[]" class="form-control signInput">
+                @endif
+                <input type="hidden" class="base64" name="base64[]" value="{{$signGroup['base64'] ?? ''}}">
+                <input type="hidden" class="signFileName" name="signFileName[]" value="{{$signGroup['signFileName'] ?? ''}}">
                 <input type="text" name="work[]" class="form-control work" placeholder="Характер работы" value="{{$signGroup['work'] ?? ''}}">
                 <input type="text" name="family[]" class="form-control family" placeholder="Фамилия" value="{{$signGroup['family'] ?? ''}}">
                 <input type="text" name="signDate[]" class="form-control signDate" placeholder="Дата подписания" value="{{$signGroup['signDate'] ?? ''}}">
@@ -52,17 +79,20 @@
         <input class="btn btn-primary" type="submit" value="Отправить">
     </form>
 
-    @if(!empty($fileInfo))
-        @foreach($fileInfo as $fileIn)
-            <br>
-            <div>
-                <div>Имя: {{$fileIn['fileName'] ?? ''}}</div>
-                <div>MD5: {{$fileIn['fileMD5'] ?? ''}}</div>
-                <div>Размер: {{$fileIn['fileSize'] ?? ''}}</div>
-                <div>{{$fileIn['changeTimeDescription']}}{{$fileIn['changeTime']}}</div>
-            </div>
-        @endforeach
+    @foreach($fileGroups as $fileGroup)
+        @if(!empty($fileGroup['fileName']))
+        <br>
+        <div>
+            <div>Имя: {{$fileGroup['fileName']}}</div>
+            <div>MD5: {{$fileGroup['fileMD5'] ?? ''}}</div>
+            <div>Размер: {{$fileGroup['fileSize'] ?? ''}}</div>
+            <div>{{$fileGroup['changeTimeDescription']}}{{$fileGroup['changeTime']}}</div>
+        </div>
+        @endif
+    @endforeach
+    @if(!empty($outputFilename))
         <br><a href="{{Storage::url($outputFilename)}}" target="_blank">Скачать инфо ПДФ</a>
+        <div class="mb-5"></div>
     @endif
 
     @if(!empty($formHistories))
