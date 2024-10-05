@@ -136,6 +136,8 @@ class MainController extends Controller
         foreach ($allFHs as $key => $fh) {
             $context['formHistories'][$key]['id'] = $fh->id;
             $context['formHistories'][$key]['created_at'] = $fh->created_at;
+            $form_context = json_decode($fh->context, true);
+            $context['formHistories'][$key]['infoList'] = $form_context['infoList'];
         }
     }
 }
