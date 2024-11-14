@@ -92,10 +92,6 @@
             <div class="ms-auto me-auto"><h4>Раздел информационного листа</h4></div>
         </div>
         <input class="form-control" type="text" name="infoList" id="infoList" placeholder="Информационно-удостоверяющий лист" value="{{$infoList ?? ''}}">
-        <label class="form-label" for="list">Лист</label>
-        <input class="form-control" type="text" name="list" id="list" value="{{$list ?? ''}}">
-        <label class="form-label" for="allLists">Всего листов</label>
-        <input class="form-control" type="text" name="allLists" id="allLists" value="{{$allLists ?? ''}}">
         <input class="btn btn-primary" type="submit" value="Отправить">
     </form>
 

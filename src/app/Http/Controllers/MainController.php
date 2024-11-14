@@ -22,8 +22,6 @@ class MainController extends Controller
 
         $context['title'] = $request->post('title');
         $context['infoList'] = $request->post('infoList');
-        $context['list'] = $request->post('list');
-        $context['allLists'] = $request->post('allLists');
 
         $files = $request->post('fileMD5');
         foreach ($files as $key => $file) {
@@ -132,7 +130,7 @@ class MainController extends Controller
 
     protected static function addFormHistoriesToContext(array &$context): void
     {
-        $allFHs = FormHistory::all();
+        $allFHs = FormHistory::all()->sortBy('created_at');
         foreach ($allFHs as $key => $fh) {
             $context['formHistories'][$key]['id'] = $fh->id;
             $context['formHistories'][$key]['created_at'] = $fh->created_at;
