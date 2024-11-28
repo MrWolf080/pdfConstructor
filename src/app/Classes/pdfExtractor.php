@@ -119,13 +119,17 @@ class pdfExtractor {
         preg_match_all('/<xmp:ModifyDate>(.*)<\/xmp:ModifyDate>/', $content, $matches1);
         preg_match_all('/\/ModDate\s?\(D:(.[^)]*)\)/', $content, $matches2);
         if (!empty($matches2[1])) {
-            $date = $matches2[1][count($matches2[1]) - 1];
-            $date = preg_replace('/\+.*/', '', $date);
-            return date('d.m.Y H:i:s', strtotime($date));
+            $times = [];
+            foreach ($matches2[1] as $match) {
+                $times[] = strtotime(preg_replace('/\+.*/', '', $match));
+            }
+            return date('d.m.Y H:i:s', max($times));
         } else if (!empty($matches1[1])) {
-            $date = $matches1[1][count($matches1[1]) - 1];
-            $date = preg_replace('/\+.*/', '', $date);
-            return date('d.m.Y H:i:s', strtotime($date));
+            $times = [];
+            foreach ($matches1[1] as $match) {
+                $times[] = strtotime(preg_replace('/\+.*/', '', $match));
+            }
+            return date('d.m.Y H:i:s', max($times));
         }
         return false;
     }

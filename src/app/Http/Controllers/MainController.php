@@ -101,7 +101,12 @@ class MainController extends Controller
     }
 
     public function deleteFormHistory($id, Request $request) {
-        $data = FormHistory::findOrFail($id);
+        $data = FormHistory::find($id);
+
+        if (empty($data)) {
+            return self::index($request);
+        }
+
         $data->delete();
 
         $context['pageTitle'] = 'Home';
