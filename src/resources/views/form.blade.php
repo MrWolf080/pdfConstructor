@@ -14,6 +14,7 @@
         @endphp
         @foreach($fileGroups as $key => $fileGroup)
             <div class="d-flex file-upload-group">
+                <div class="file-group-number col-1" style="width: 2%; margin-top: 5px">{{$fileGroup['number']}}</div>
                 <div class="col-10">
                     <div class="mb-3">
                         <input type="hidden" class="fileModifiedTime" name="fileModifiedTime[]" value="{{$fileGroup['fileModifiedTime'] ?? ''}}">
@@ -57,6 +58,7 @@
         @endphp
         @foreach($signGroups as $signGroup)
             <div class="d-flex sign-upload-group">
+                <div class="sign-group-number col-1" style="width: 2%; margin-top: 5px">{{$signGroup['number']}}</div>
                 <div class="col-10">
                     <div class="mb-3">
                         @if(!empty($signGroup['base64']))

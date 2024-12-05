@@ -18,6 +18,7 @@ $('#addItems').on('click', function() {
     $fileUploadGroup.find('.deleteItems').val('Удалить элементы');
     removeExistsFileInfo($fileUploadGroup.find('.exists-file-info'));
     $fileUploadGroup.insertBefore('#addItems');
+    replaceNumbers();
 });
 
 $('#addItemsSign').on('click', function() {
@@ -26,6 +27,7 @@ $('#addItemsSign').on('click', function() {
     $signUploadGroup.find('.deleteItemsSign').val('Удалить элементы');
     removeExistsSign($signUploadGroup.find('.exists-sign'));
     $signUploadGroup.insertBefore('#addItemsSign');
+    replaceNumbers();
 });
 
 $('.replace-file-info').on('click', function() {
@@ -41,12 +43,14 @@ $('.replace-sign').on('click', function() {
 $(document).on('click', '.deleteItems', function() {
     if ($('.file-upload-group').length > 1) {
         $(this).closest('.file-upload-group').remove();
+        replaceNumbers();
     }
 });
 
 $(document).on('click', '.deleteItemsSign', function() {
     if ($('.sign-upload-group').length > 1) {
         $(this).closest('.sign-upload-group').remove();
+        replaceNumbers();
     }
 });
 
@@ -241,4 +245,14 @@ var swapSignUploadGroups = function($sign_upload_group, up) {
             removeExistsSign($sign_upload_group.find('.exists-sign'));
         }
     }
+}
+
+var replaceNumbers = function() {
+    $('.file-upload-group').each(function(idx, elem) {
+        $(elem).find('.file-group-number').text(idx + 1 + '.');
+    });
+
+    $('.sign-upload-group').each(function(idx, elem) {
+        $(elem).find('.sign-group-number').text(idx + 1 + '.');
+    });
 }
