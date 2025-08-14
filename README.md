@@ -5,3 +5,4 @@
 5. ./vendor/bin/sail artisan key:generate
 6. ./vendor/bin/sail artisan npm install
 7. ./vendor/bin/sail artisan npm run build
+8. ./vendor/bin/sail artisan storage:link
