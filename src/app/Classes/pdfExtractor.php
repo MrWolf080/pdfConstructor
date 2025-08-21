@@ -38,8 +38,8 @@ class pdfExtractor {
         $str = '
             <table cellspacing="0" cellpadding="1" border="1px" style="width: 100%;">
                 <tr>
-                    <td style="width: 30%; text-align: center"><strong>MD5</strong></td>
-                    <td style="width: 70%; text-align: center"><strong>Значение MD5</strong></td>
+                    <td style="width: 30%; text-align: center"><strong>CRC32</strong></td>
+                    <td style="width: 70%; text-align: center"><strong>Значение CRC32</strong></td>
                 </tr>
         ';
         foreach ($context['fileUploadGroup'] as $doc) {

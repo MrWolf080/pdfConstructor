@@ -34,7 +34,7 @@ class MainController extends Controller
                 $file = $request->allFiles()['file'][$key];
                 $fileUploadGroup['fileName'] = $file->getClientOriginalName();
                 $fileUploadGroup['fileSize'] = number_format($file->getSize(), 0, '', ' ') . " байт";
-                $fileUploadGroup['fileMD5'] = md5_file($file->getRealPath());
+                $fileUploadGroup['fileMD5'] = hash_file('crc32b', $file->getRealPath());
                 $change_time = \App\Classes\pdfExtractor::get_change_time($file);
                 if ($change_time === false) {
                     $fileUploadGroup['changeTimeDescription'] = 'Время изменения: ';

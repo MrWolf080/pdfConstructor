@@ -102,7 +102,7 @@
         <br>
         <div>
             <div>Имя: {{$fileGroup['fileName']}}</div>
-            <div>MD5: {{$fileGroup['fileMD5'] ?? ''}}</div>
+            <div>CRC32: {{$fileGroup['fileMD5'] ?? ''}}</div>
             <div>Размер: {{$fileGroup['fileSize'] ?? ''}}</div>
             <div>{{$fileGroup['changeTimeDescription']}}{{$fileGroup['changeTime']}}</div>
         </div>
